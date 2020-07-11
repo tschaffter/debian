@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  user:
+    image: tschaffter/debian
+    hostname: debian
+    restart: unless-stopped
+    # environment:
+    #   TERM: "xterm-color"
+    extra_hosts:
+      - "debian:127.0.0.1"
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: >
+      bash -c "sudo chown root:docker /var/run/docker.sock
+      && /bin/bash"
+
+volumes:
+  home-persist:
