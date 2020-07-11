@@ -68,4 +68,5 @@ RUN conda create --name synapse python=3.8 \
     synapseclient==2.1.1 \
     challengeutils==2.2.0 \
     pandas==1.0.5
-
+RUN /bin/bash -c "conda config --set auto_activate_base false \
+    && conda init bash"
