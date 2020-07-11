@@ -3,7 +3,6 @@ FROM debian:buster-20200607-slim
 LABEL maintainer="thomas.schaffter@gmail.com"
 
 ARG user=tschaffter
-
 ENV miniconda3_version="py38_4.8.3"
 ENV PATH="/home/${user}/miniconda3/bin:${PATH}"
 ENV timezone="America/Los_Angeles"
@@ -29,6 +28,7 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     vim \
     wget \
     && update-ca-certificates \
+    # Install Docker
     && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \
     && add-apt-repository \
         "deb [arch=amd64] https://download.docker.com/linux/debian \
@@ -37,7 +37,7 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     && apt-get update -qq -y \
     && apt-get install --no-install-recommends -qq -y docker-ce \
         docker-ce-cli \
-        # containerd.io \
+        containerd.io \
     && rm -rf /var/lib/apt/lists/*
 
 # Create user and set work directory
@@ -49,10 +49,11 @@ RUN useradd -m ${user} \
 USER ${user}
 WORKDIR /home/${user}
 
-# Create initial structure of the persistent volume
+# Create the initial structure of the persistent volume
 RUN mkdir -p persist/.ssh && ln -s persist/.ssh . \
     && mkdir -p persist/dev && ln -s persist/dev . \
-    && touch persist/.gitconfig && ln -s persist/.gitconfig .
+    && touch persist/.gitconfig && ln -s persist/.gitconfig . \
+    && touch persist/.synapseConfig && ln -s persist/.synapseConfig .
 
 # Install miniconda
 RUN wget \
