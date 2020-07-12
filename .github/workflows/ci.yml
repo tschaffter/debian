@@ -16,4 +16,6 @@ jobs:
     - name: Run hadolint
       run: hadolint
         Dockerfile.base
+        Dockerfile.docker
+        Dockerfile.synapse
         Dockerfile.user
