@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Run hadolint
       run: hadolint
         Dockerfile.base
@@ -22,3 +23,21 @@ jobs:
 
     - name: Validate docker-compose.yml
       run: docker-compose -f docker-compose.yml config
+
+  build:
+    runs-on: ubuntu-latest
+    needs: ['lint']
+    env:
+      repository: tschaffter/${{ github.event.repository.name }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: >
+          docker build
+            -f Dockerfile.base
+            -t tschaffter/${repository}:base .
+          docker build
+            -f Dockerfile.user
+            -t tschaffter/${repository}:user .
