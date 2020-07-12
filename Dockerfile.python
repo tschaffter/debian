@@ -18,11 +18,5 @@ RUN wget \
     && rm -f Miniconda3-${miniconda3_version}-Linux-x86_64.sh
 RUN conda --version
 
-# Create conda environments
-RUN conda create --name synapse python=3.8 \
-    && conda run --name synapse pip install \
-    synapseclient==2.1.1 \
-    challengeutils==2.2.0 \
-    pandas==1.0.5
 RUN /bin/bash -c "conda config --set auto_activate_base false \
     && conda init bash"
