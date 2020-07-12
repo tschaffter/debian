@@ -1,0 +1,28 @@
+FROM tschaffter/debian:base
+
+ARG user
+
+# Install dependencies
+# hadolint ignore=DL3008
+RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
+    curl \
+    git \
+    htop \
+    sudo \
+    tmux \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create user and set work directory
+RUN useradd -m ${user} \
+    && usermod -a -G sudo ${user} \
+    && echo "${user} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${user} \
+	&& chmod 0440 /etc/sudoers.d/${user}
+USER ${user}
+WORKDIR /home/${user}
+
+# Create the initial structure of the persistent volume
+RUN mkdir -p persist/.ssh && ln -s persist/.ssh . \
+    && mkdir -p persist/dev && ln -s persist/dev . \
+    && touch persist/.gitconfig && ln -s persist/.gitconfig . \
+    && touch persist/.synapseConfig && ln -s persist/.synapseConfig .

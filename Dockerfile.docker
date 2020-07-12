@@ -1,0 +1,24 @@
+FROM tschaffter/debian:user
+
+ARG user
+
+# Install docker
+# hadolint ignore=DL3008
+RUN sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        gnupg2 \
+        software-properties-common \
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \
+    && sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/debian \
+        $(lsb_release -cs) \
+        stable" \
+    && sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# Enable to user to run docker commands without sudo
+RUN sudo usermod -a -G docker tschaffter

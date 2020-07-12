@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   user:
-    image: tschaffter/debian:latest
+    image: tschaffter/debian:user
     hostname: debian
     restart: unless-stopped
     # environment:
@@ -11,8 +11,21 @@ services:
       - "debian:127.0.0.1"
     network_mode: host
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: "/bin/bash"
+
+  docker:
+    image: tschaffter/debian:docker
+    hostname: debian
+    restart: unless-stopped
+    extra_hosts:
+      - "debian:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+      - /var/run/docker.sock:/var/run/docker.sock
     expose:
       - "22"
     command: >
