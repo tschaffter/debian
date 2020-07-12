@@ -19,3 +19,6 @@ jobs:
         Dockerfile.docker
         Dockerfile.synapse
         Dockerfile.user
+
+    - name: Validate docker-compose.yml
+      run: docker-compose -f docker-compose.yml config
