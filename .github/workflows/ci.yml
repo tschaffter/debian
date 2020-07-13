@@ -47,7 +47,7 @@ jobs:
         run: >
           docker build
             -f Dockerfile.base
-            -t tschaffter/${repository}:base .
+            -t ${repository}:base .
           && docker tag
-            tschaffter/${repository}:base
-            tschaffter/${repository}:base-${GITHUB_REF#refs/tags/}
+            ${repository}:base
+            ${repository}:base-${GITHUB_REF#refs/tags/}
