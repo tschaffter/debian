@@ -1,4 +1,5 @@
-FROM tschaffter/debian:base
+ARG version
+FROM tschaffter/debian:base-${version}
 
 ARG user
 

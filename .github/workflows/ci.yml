@@ -39,6 +39,7 @@ jobs:
     needs: [test]
     env:
       repository: tschaffter/${{ github.event.repository.name }}
+      version: ${GITHUB_REF#refs/tags/}
 
     steps:
       - uses: actions/checkout@v2
@@ -46,4 +47,5 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -f Dockerfile.base -t ${repository}:base .
-          docker tag ${repository}:base ${repository}:base-${GITHUB_REF#refs/tags/}
+          docker tag ${repository}:base ${repository}:base-${version}
+          docker build -f Dockerfile.user --build-arg version=${version} -t ${repository}:user .
