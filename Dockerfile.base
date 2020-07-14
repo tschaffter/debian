@@ -4,6 +4,7 @@ LABEL maintainer="thomas.schaffter@gmail.com"
 
 ARG version
 ENV version=${version}
+LABEL version=${version}
 
 # Install dependencies
 # hadolint ignore=DL3008

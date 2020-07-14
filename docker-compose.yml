@@ -1,14 +1,14 @@
-version: "3.7"
+version: "3.8"
 
 services:
   user:
-    image: tschaffter/debian:user
-    hostname: debian
+    image: tschaffter/debian:user-${version}
+    hostname: user
     restart: unless-stopped
     # environment:
     #   TERM: "xterm-color"
     extra_hosts:
-      - "debian:127.0.0.1"
+      - "user:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
@@ -17,11 +17,11 @@ services:
     command: "/bin/bash"
 
   docker:
-    image: tschaffter/debian:docker
-    hostname: debian
+    image: tschaffter/debian:docker-${version}
+    hostname: docker
     restart: unless-stopped
     extra_hosts:
-      - "debian:127.0.0.1"
+      - "docker:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
