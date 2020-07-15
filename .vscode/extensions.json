@@ -1,5 +1,6 @@
 {
     "recommendations": [
-      "exiasr.hadolint"
+      "exiasr.hadolint",
+      "ms-vscode-remote.remote-containers"
     ]
 }
