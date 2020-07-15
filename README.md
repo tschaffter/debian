@@ -19,7 +19,7 @@ The benefits of this approach are:
 | Provenance | If you know the date when you deployed an environment, you can retrieve the version of all the system dependencies used.\* |
 | Reproducibility | Deploy any past versions of your environments. |
 
-\* Assumes that the `latest` version of the environment at that time has been
+\* Assumes that the `latest` version of the environment available at that time has been
 deployed. The script `debian.sh` is provided to garantee that by running
 `docker-compose pull` before deploying the environment selected.
 
@@ -66,7 +66,7 @@ Enter `exit` or press CTRL+C followed by CTRL+D to exit and stop the container.
 3. Update `docker-compose.yml` to account for the updated/new environments.
 4. Update the GitHub Action `ci.yml`.
 
-    - Replace the occurrence of `tschaffter` by your username
+    - Replace the occurrence of `tschaffter` by your username.
     - Update to account for the updated/new environments.
 
 5. Update the content of the file `VERSION`.
@@ -79,7 +79,7 @@ to the credentials of a DockerHub account (service/machine user suggested).
     git push origin 20200713
     ```
 
-8. Run one of the environment once the GitHub Action `ci.yml` has successfully
+8. Run one of the environments once the GitHub Action `ci.yml` has successfully
 completed.
 
     ```console
