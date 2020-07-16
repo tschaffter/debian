@@ -1,6 +1,8 @@
 # Dockerized Debian environments
 
 ![ci](https://github.com/tschaffter/debian/workflows/ci/badge.svg)
+[![Docker](https://img.shields.io/badge/docker-tschaffter%2Fdebian-blue)](https://hub.docker.com/repository/docker/tschaffter/debian)
+[![GitHub tag](https://img.shields.io/badge/release-20200716-blue)](https://github.com/tschaffter/debian/releases/tag/20200716)
 
 Deploying reproducible, short-lived Debian development environments anywhere.
 
