@@ -7,8 +7,10 @@ ENV PATH="/home/${user}/miniconda3/bin:${PATH}"
 ENV timezone="America/Los_Angeles"
 
 # Required for non-interactive tzdata install
-RUN ln -snf /usr/share/zoneinfo/${timezone} /etc/localtime \
-    && echo ${timezone} > /etc/timezone
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL3004
+RUN sudo ln -snf /usr/share/zoneinfo/${timezone} /etc/localtime \
+    && echo ${timezone} | sudo tee -a /etc/timezone
 
 # Install miniconda
 RUN wget \

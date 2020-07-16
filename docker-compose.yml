@@ -14,7 +14,7 @@ services:
       - home-persist:/home/tschaffter/persist
     expose:
       - "22"
-    command: "/bin/bash"
+    command: /bin/bash
 
   docker:
     image: tschaffter/debian:docker-${version}
@@ -31,6 +31,32 @@ services:
     command: >
       bash -c "sudo chown root:docker /var/run/docker.sock
       && /bin/bash"
+
+  python:
+    image: tschaffter/debian:python-latest
+    hostname: python
+    restart: unless-stopped
+    extra_hosts:
+      - "python:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: /bin/bash
+
+  synapse:
+    image: tschaffter/debian:synapse-latest
+    hostname: synapse
+    restart: unless-stopped
+    extra_hosts:
+      - "synapse:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: /bin/bash
 
 volumes:
   home-persist:
