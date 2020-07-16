@@ -15,7 +15,7 @@ The benefits of this approach are:
 | Property | Description |
 |---|---|
 | Cross-platform | Bring your dev environments to any hosts that have Docker installed. |
-| Stability | Use short-lived environment instances; only add to `Dockerfile.*` the dependencies that you really need. |
+| Stability / security | Use short-lived environment instances; only add to `Dockerfile.*` the dependencies that you really need. |
 | Provenance | If you know the date when you deployed an environment, you can retrieve the version of all the system dependencies used.\* |
 | Reproducibility | Deploy any past versions of your environments. |
 
@@ -59,7 +59,7 @@ docker attach <container_id>
 
 Enter `exit` or press CTRL+C followed by CTRL+D to exit and stop the container.
 
-## Create your own environments
+## Creating your own environments
 
 1. Fork and clone this repository.
 2. Update the environments or create new ones (`Dockerfile.*`).
