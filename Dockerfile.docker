@@ -2,8 +2,6 @@ ARG version
 FROM tschaffter/debian:user-${version}
 
 ARG user
-ARG version
-ENV version=${version}
 
 # Install docker
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
