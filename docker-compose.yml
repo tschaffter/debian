@@ -33,7 +33,7 @@ services:
       && /bin/bash"
 
   python:
-    image: tschaffter/debian:python-latest
+    image: tschaffter/debian:python-${version}
     hostname: python
     restart: unless-stopped
     extra_hosts:
@@ -46,7 +46,7 @@ services:
     command: /bin/bash
 
   synapse:
-    image: tschaffter/debian:synapse-latest
+    image: tschaffter/debian:synapse-${version}
     hostname: synapse
     restart: unless-stopped
     extra_hosts:

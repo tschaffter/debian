@@ -1,4 +1,4 @@
-FROM tschaffter/debian:python-latest
+FROM tschaffter/debian:python-${version}
 
 # Create synapse conda environment
 RUN conda create --name synapse python=3.8 \
