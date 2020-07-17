@@ -58,7 +58,7 @@ jobs:
           tags: base-latest, base-${{ steps.vars.outputs.version }}
           dockerfile: Dockerfile.base
           build_args: "version=${{ steps.vars.outputs.version }}"
-          push: "version=${{ steps.vars.outputs.push }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.user
         uses: docker/build-push-action@v1
@@ -70,7 +70,7 @@ jobs:
           dockerfile: Dockerfile.user
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
-          push: "version=${{ steps.vars.outputs.push }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.docker
         uses: docker/build-push-action@v1
@@ -82,7 +82,7 @@ jobs:
           dockerfile: Dockerfile.docker
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
-          push: "version=${{ steps.vars.outputs.push }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.python
         uses: docker/build-push-action@v1
@@ -94,7 +94,7 @@ jobs:
           dockerfile: Dockerfile.python
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
-          push: "version=${{ steps.vars.outputs.push }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.synapse
         uses: docker/build-push-action@v1
@@ -105,7 +105,7 @@ jobs:
           tags: synapse-latest, synapse-${{ steps.vars.outputs.version }}
           dockerfile: Dockerfile.synapse
           build_args: "version=${{ steps.vars.outputs.version }}"
-          push: "version=${{ steps.vars.outputs.push }}"
+          push: ${{ steps.vars.outputs.push }}
 
       # - name: Push README to Docker Hub
       #   uses: peter-evans/dockerhub-description@v2
