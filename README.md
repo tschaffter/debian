@@ -2,7 +2,7 @@
 
 ![ci](https://github.com/tschaffter/debian/workflows/ci/badge.svg)
 [![Docker](https://img.shields.io/badge/docker-tschaffter%2Fdebian-blue)](https://hub.docker.com/repository/docker/tschaffter/debian)
-[![GitHub tag](https://img.shields.io/badge/release-20200716-blue)](https://github.com/tschaffter/debian/releases/tag/20200716)
+[![GitHub tag](https://img.shields.io/badge/release-20200716.2-blue)](https://github.com/tschaffter/debian/releases/tag/20200716.2)
 
 Deploying reproducible, short-lived Debian development environments anywhere.
 
@@ -17,9 +17,10 @@ The benefits of this approach are:
 | Property | Description |
 |---|---|
 | Cross-platform | Bring your dev environments to any hosts that have Docker installed. |
-| Stability / security | Use short-lived environment instances; only add to `Dockerfile.*` the dependencies that you really need. |
+| Stability | Detect early if installing an update breaks your environment (CI/CD). |
+| Security | Use short-lived environment instances; only add to `Dockerfile.*` the dependencies that you really need. |
 | Provenance | If you know the date when you deployed an environment, you can retrieve the version of all the system dependencies used.\* |
-| Reproducibility | Deploy any past versions of your environments. |
+| Reproducibility | Deploy past versions of your environments. |
 
 \* Assumes that the `latest` version of the environment available at that time has been
 deployed. The script `debian.sh` is provided to garantee that by running
