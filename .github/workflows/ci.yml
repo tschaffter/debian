@@ -30,7 +30,6 @@ jobs:
       run: docker-compose -f docker-compose.yml config
 
   release:
-    if: startsWith(github.ref, 'refs/tags/')
     needs: [test]
     runs-on: ubuntu-latest
     steps:
@@ -41,7 +40,14 @@ jobs:
           echo ::set-output \
             name=repository::tschaffter/${{ github.event.repository.name }}
           echo ::set-output name=user::tschaffter
-          echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+          if [[ ${GITHUB_REF} = refs/tags/ ]]
+          then
+            echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+            echo ::set-output name=push::true
+          else
+            echo ::set-output name=version::test
+            echo ::set-output name=push::false
+          fi
 
       - name: Build Dockerfile.base
         uses: docker/build-push-action@v1
@@ -52,6 +58,7 @@ jobs:
           tags: base-latest, base-${{ steps.vars.outputs.version }}
           dockerfile: Dockerfile.base
           build_args: "version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.user
         uses: docker/build-push-action@v1
@@ -63,6 +70,7 @@ jobs:
           dockerfile: Dockerfile.user
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.docker
         uses: docker/build-push-action@v1
@@ -74,6 +82,7 @@ jobs:
           dockerfile: Dockerfile.docker
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.python
         uses: docker/build-push-action@v1
@@ -85,6 +94,7 @@ jobs:
           dockerfile: Dockerfile.python
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
 
       - name: Build Dockerfile.synapse
         uses: docker/build-push-action@v1
@@ -95,6 +105,7 @@ jobs:
           tags: synapse-latest, synapse-${{ steps.vars.outputs.version }}
           dockerfile: Dockerfile.synapse
           build_args: "version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
 
       # - name: Push README to Docker Hub
       #   uses: peter-evans/dockerhub-description@v2
