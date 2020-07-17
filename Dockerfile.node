@@ -1,0 +1,21 @@
+ARG version
+FROM tschaffter/debian:user-${version}
+
+ARG node_setup_version="10.x"
+
+# Install docker
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL3004,DL3008
+RUN curl -sL https://deb.nodesource.com/setup_${node_setup_version} \
+        -o nodesource_setup.sh \
+    && sudo bash nodesource_setup.sh \
+    && sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        build-essential \
+        nodejs \
+    && nodejs -v
+
+# Install npm
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# hadolint ignore=DL3004,DL3008
+RUN sudo npm install -g npm@6.14.6
