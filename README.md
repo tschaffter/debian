@@ -62,6 +62,27 @@ docker attach <container_id>
 
 Enter `exit` or press CTRL+C followed by CTRL+D to exit and stop the container.
 
+## Building the environments locally
+
+The file `docker-compose.yml` includes the arguments required to build the
+images locally (e.g. for testing). The value of the variables referenced by
+`docker-compose.yml` should be specified using variable substitution.
+
+To build the environment `user` defined by `Dockerfile.user`, run the following
+commands.
+
+```console
+version=local docker-compose build base
+user=tschaffter version=local docker-compose build user
+```
+
+or when using `Git Bash` on Windows 10:
+
+```console
+version=local winpty docker-compose build base
+user=tschaffter version=local winpty docker-compose build user
+```
+
 ## Creating your own environments
 
 1. Fork and clone this repository.
