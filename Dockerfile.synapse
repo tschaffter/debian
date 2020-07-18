@@ -9,5 +9,4 @@ RUN conda create --name synapse python=3.8 \
     pandas==1.0.5
 
 # Activate synapse environment when logging in
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN echo "source activate synapse" | tee -a ~/.bashrc

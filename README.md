@@ -33,8 +33,8 @@ that matches the name and version specified. The following commands are
 equivalent.
 
 ```console
-./debian.sh user latest
-./debian.sh user
+bash debian.sh user latest
+bash debian.sh user
 ```
 
 It is recommended to add `debian.sh` to your `PATH` so you can run environments
@@ -44,7 +44,7 @@ The value of `<version>` can be set to any git tags for which Docker images have
 been successfully pushed to DockerHub. For example,
 
 ```console
-./debian.sh user 20200713
+bash debian.sh user 20200713
 ```
 
 When using `Git Bash` on Windows 10, use the following command:
@@ -66,26 +66,49 @@ Enter `exit` or press CTRL+C followed by CTRL+D to exit and stop the container.
 
 The file `docker-compose.yml` includes the arguments required to build the
 images locally (e.g. for testing). The value of the variables referenced by
-`docker-compose.yml` should be specified using variable substitution.
+`docker-compose.yml` should be specified using variable substitution. For
+example, `user=tschaffter bash debian.sh user local`.
 
-To build the environment `user` defined by `Dockerfile.user`, run the following
-commands.
+To build and start the environment `base` defined by `Dockerfile.base`:
 
 ```console
-version=local docker-compose build base
-user=tschaffter version=local docker-compose build user
+$ bash debian.sh base local
+Pulling base ... done
+Step 1/8 : FROM debian:buster-20200607-slim
+...
+Successfully tagged tschaffter/debian:base-local
+root@base:/tmp#
 ```
 
-OR
+Here `local` is the value given to the variable `version`. Because the
+image `tschaffter/debian:base-local` does not exists on Docker Hub or any other
+Docker registries you may be logged in to, the above command
+builds the environment using the instructions specified in `docker-compose.yml`.
+
+Building other environments may require to set the value of additional variables
+such as the environment `user` that requires to set the variable `user`.
 
 ```console
-user=tschaffter version=local docker-compose build base user
+$ user=tschaffter bash debian.sh user local
+Pulling user ... done
+Step 1/10 : ARG version
+...
+Successfully tagged tschaffter/debian:user-local
+tschaffter@user:~$
 ```
 
-When using `Git Bash` on Windows 10:
+Alternatively, you can also build multiple environment using
+`docker-compose build`:
 
 ```console
-user=tschaffter version=local winpty docker-compose build base user
+user=tschaffter version=local winpty docker-compose build \
+    base user docker python synapse node
+```
+
+before starting the environment of your choice:
+
+```console
+bash debian.sh node local
 ```
 
 ## Creating your own environments
