@@ -113,5 +113,23 @@ services:
       - "22"
     command: /bin/bash
 
+  esp:
+    image: tschaffter/debian:esp-${version}
+    build:
+      context: .
+      dockerfile: Dockerfile.esp
+      args:
+        version: ${version}
+    hostname: esp
+    restart: unless-stopped
+    extra_hosts:
+      - "esp:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: /bin/bash
+
 volumes:
   home-persist:
