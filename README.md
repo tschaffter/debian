@@ -101,7 +101,7 @@ Alternatively, you can also build multiple environment using
 `docker-compose build`:
 
 ```console
-user=tschaffter version=local winpty docker-compose build \
+user=tschaffter version=local docker-compose build \
     base user docker python synapse node
 ```
 
