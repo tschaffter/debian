@@ -13,6 +13,8 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     sudo \
     tmux \
     vim \
+    && apt-get -y autoclean \
+    && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 # Enable shell pipefail option

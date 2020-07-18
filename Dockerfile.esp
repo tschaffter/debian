@@ -25,5 +25,7 @@ RUN sudo apt-get update -qq -y \
     # Make Python 3 the default interpreter
     && sudo update-alternatives --install \
         /usr/bin/python python /usr/bin/python3 10 \
+    && apt-get -y autoclean \
+    && apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt/lists/*
 
