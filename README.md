@@ -76,11 +76,16 @@ version=local docker-compose build base
 user=tschaffter version=local docker-compose build user
 ```
 
-or when using `Git Bash` on Windows 10:
+OR
 
 ```console
-version=local winpty docker-compose build base
-user=tschaffter version=local winpty docker-compose build user
+user=tschaffter version=local docker-compose build base user
+```
+
+When using `Git Bash` on Windows 10:
+
+```console
+user=tschaffter version=local winpty docker-compose build base user
 ```
 
 ## Creating your own environments

@@ -2,6 +2,7 @@ ARG version
 FROM tschaffter/debian:base-${version}
 
 ARG user
+RUN test -n "${user}"
 
 # Install dependencies
 # hadolint ignore=DL3008
