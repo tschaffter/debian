@@ -15,9 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run hadolint
-      run: hadolint
-        --config .hadolint.yaml
-        Dockerfile.*
+      run: hadolint Dockerfile.*
 
   test:
     needs: [lint]
