@@ -1,0 +1,17 @@
+ARG version
+FROM tschaffter/debian:user-${version}
+
+ARG node_setup_version="12.x"
+
+# Install docker
+RUN curl -sL https://deb.nodesource.com/setup_${node_setup_version} \
+        -o nodesource_setup.sh \
+    && sudo bash nodesource_setup.sh \
+    && sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        build-essential \
+        nodejs \
+    && nodejs -v
+
+# Install npm
+# RUN sudo npm install -g npm@6.14.6

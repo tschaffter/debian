@@ -2,10 +2,9 @@ ARG version
 FROM tschaffter/debian:user-${version}
 
 ARG user
+RUN test -n "${user}"
 
 # Install docker
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-# hadolint ignore=DL3004,DL3008
 RUN sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         gnupg2 \
@@ -23,5 +22,4 @@ RUN sudo apt-get update -qq -y \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # Enable to user to run docker commands without sudo
-# hadolint ignore=DL3004
 RUN sudo usermod -a -G docker ${user}

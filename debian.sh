@@ -138,7 +138,14 @@ environment=${_arg_environment[0]}
 version=${_arg_environment[1]}
 file=${DEBIAN_PATH}/docker-compose.yml
 
-version=${version} docker-compose -f ${file} pull
-version=${version} docker-compose -f ${file} run ${environment}
+version=${version} docker-compose \
+	-f ${file} \
+	--log-level ERROR\
+	pull ${environment}
+
+version=${version} docker-compose \
+	-f ${file} \
+	--log-level ERROR \
+	run ${environment}
 
 # ] <-- needed because of Argbash

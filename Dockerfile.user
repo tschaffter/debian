@@ -2,6 +2,7 @@ ARG version
 FROM tschaffter/debian:base-${version}
 
 ARG user
+RUN test -n "${user}"
 
 # Install dependencies
 # hadolint ignore=DL3008
@@ -13,6 +14,9 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     tmux \
     vim \
     && rm -rf /var/lib/apt/lists/*
+
+# Enable shell pipefail option
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Create user and set work directory
 RUN useradd -m ${user} \
