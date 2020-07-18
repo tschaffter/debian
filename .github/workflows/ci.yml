@@ -16,10 +16,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run hadolint
       run: hadolint
-        Dockerfile.base
-        Dockerfile.docker
-        Dockerfile.synapse
-        Dockerfile.user
+        --config .hadolint.yaml
+        Dockerfile.*
 
   test:
     needs: [lint]
