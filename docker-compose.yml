@@ -77,6 +77,25 @@ services:
       - "22"
     command: /bin/bash
 
+  conda:
+    image: tschaffter/debian:conda-${version}
+    build:
+      context: .
+      dockerfile: Dockerfile.conda
+      args:
+        user: ${user}
+        version: ${version}
+    hostname: conda
+    restart: unless-stopped
+    extra_hosts:
+      - "conda:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: /bin/bash
+
   synapse:
     image: tschaffter/debian:synapse-${version}
     build:
@@ -106,6 +125,24 @@ services:
     restart: unless-stopped
     extra_hosts:
       - "node:127.0.0.1"
+    network_mode: host
+    volumes:
+      - home-persist:/home/tschaffter/persist
+    expose:
+      - "22"
+    command: /bin/bash
+
+  cxx:
+    image: tschaffter/debian:cxx-${version}
+    build:
+      context: .
+      dockerfile: Dockerfile.cxx
+      args:
+        version: ${version}
+    hostname: cxx
+    restart: unless-stopped
+    extra_hosts:
+      - "cxx:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist

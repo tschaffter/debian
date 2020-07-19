@@ -1,0 +1,24 @@
+ARG version
+FROM tschaffter/debian:user-${version}
+
+ARG user
+RUN test -n "${user}"
+
+ENV miniconda3_version="py38_4.8.3"
+ENV PATH="/home/${user}/miniconda3/bin:${PATH}"
+ENV timezone="America/Los_Angeles"
+
+# Required for non-interactive tzdata install
+RUN sudo ln -snf /usr/share/zoneinfo/${timezone} /etc/localtime \
+    && echo ${timezone} | sudo tee -a /etc/timezone
+
+# Install miniconda
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-${miniconda3_version}-Linux-x86_64.sh \
+    && mkdir /home/${user}/.conda \
+    && bash Miniconda3-${miniconda3_version}-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-${miniconda3_version}-Linux-x86_64.sh
+RUN conda --version
+
+RUN /bin/bash -c "conda config --set auto_activate_base false \
+    && conda init bash"

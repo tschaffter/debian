@@ -1,5 +1,5 @@
 ARG version
-FROM tschaffter/debian:python-${version}
+FROM tschaffter/debian:conda-${version}
 
 # Create synapse conda environment
 RUN conda create --name synapse python=3.8 \
