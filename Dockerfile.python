@@ -28,8 +28,11 @@ RUN curl -O https://www.python.org/ftp/python/${py_version}/Python-${py_version}
     && make -j "$(nproc --all)" \
     && sudo make altinstall \
     && cd ~ \
-    && sudo rm -fr Python-${py_version} \
+    && sudo rm -fr Python-${py_version}.tar.xz Python-${py_version} \
     && sudo update-alternatives --install \
         /usr/bin/python python /usr/local/bin/python${py_version%.*} 10 \
     && sudo update-alternatives --install \
         /usr/bin/pip pip /usr/local/bin/pip${py_version%.*} 10
+
+RUN python --version \
+    && pip --version
