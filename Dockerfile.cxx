@@ -1,36 +1,38 @@
 ARG version
 FROM tschaffter/debian:python-${version}
 
-# Install required tools
+ARG clang_format_version="11"
+
+# Install build tools
 RUN sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
-        gcc \
+        cmake \
         g++ \
-        ninja-build \
-        git \
+        gcc \
         lcov \
-        curl \
-        sudo \
-        wget \
-        clang-format-9 \
-    && ln -s /usr/bin/clang-format-9 /usr/bin/clang-format \
-    && mv /usr/bin/lsb_release /usr/bin/lsb_release.bak \
-    && apt-get -y autoclean \
-    && apt-get -y autoremove \
-    && rm -rf /var/lib/apt-get/lists/*
-
-# Install CMake
-ARG CMAKE_VERSION=3.18
-ARG CMAKE_BUILD=4
-ARG CMAKE_INSTALL_DIR=/root
-RUN cd $CMAKE_INSTALL_DIR \
-    && wget https://cmake.org/files/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.$CMAKE_BUILD-Linux-x86_64.tar.gz  \
-    && tar xzf cmake-$CMAKE_VERSION.$CMAKE_BUILD-Linux-x86_64.tar.gz  \
-    && rm -rf cmake-$CMAKE_VERSION.$CMAKE_BUILD-Linux-x86_64.tar.gz  \
-    && cd cmake-$CMAKE_VERSION.$CMAKE_BUILD-Linux-x86_64  \
-    && ./bin/cmake --version
-
-ENV PATH="${CMAKE_INSTALL_DIR}/cmake-${CMAKE_VERSION}.${CMAKE_BUILD}-Linux-x86_64/bin:${PATH}"
+        ninja-build \
+    && sudo apt-get -y autoclean \
+    && sudo apt-get -y autoremove \
+    && sudo rm -rf /var/lib/apt-get/lists/*
 
 # Install cmake-format
 RUN sudo pip install cmake-format==0.6.10
+
+# Install clang-format (buster is several versions behind)
+RUN sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        gnupg2 \
+        software-properties-common \
+    && curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - \
+    && sudo add-apt-repository \
+        "deb [arch=amd64] https://apt.llvm.org/$(lsb_release -cs) \
+        llvm-toolchain-buster-11 \
+        main" \
+    && sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        clang-format-${clang_format_version} \
+    && sudo update-alternatives --install \
+        /usr/bin/clang-format clang-format /usr/bin/clang-format-${clang_format_version} 10 \
+    && sudo apt-get -y autoclean \
+    && sudo apt-get -y autoremove \
+    && sudo rm -rf /var/lib/apt-get/lists/*

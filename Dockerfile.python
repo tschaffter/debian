@@ -14,7 +14,6 @@ RUN sudo apt-get update -qq -y \
         libssl-dev \
         libreadline-dev \
         libffi-dev \
-        wget \
     && sudo apt-get -y autoclean \
     && sudo apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt/lists/*
@@ -23,16 +22,14 @@ RUN sudo apt-get update -qq -y \
 # hadolint ignore=DL3003
 RUN curl -O https://www.python.org/ftp/python/${py_version}/Python-${py_version}.tar.xz \
     && tar -xf Python-${py_version}.tar.xz \
+    && rm -fr Python-${py_version}.tar.xz \
     && cd Python-${py_version} \
     && ./configure --enable-optimizations \
     && make -j "$(nproc --all)" \
     && sudo make altinstall \
     && cd ~ \
-    && sudo rm -fr Python-${py_version}.tar.xz Python-${py_version} \
+    && sudo rm -fr Python-${py_version} \
     && sudo update-alternatives --install \
         /usr/bin/python python /usr/local/bin/python${py_version%.*} 10 \
     && sudo update-alternatives --install \
         /usr/bin/pip pip /usr/local/bin/pip${py_version%.*} 10
-
-RUN python --version \
-    && pip --version

@@ -18,7 +18,6 @@ RUN wget \
     && mkdir /home/${user}/.conda \
     && bash Miniconda3-${miniconda3_version}-Linux-x86_64.sh -b \
     && rm -f Miniconda3-${miniconda3_version}-Linux-x86_64.sh
-RUN conda --version
 
 RUN /bin/bash -c "conda config --set auto_activate_base false \
     && conda init bash"

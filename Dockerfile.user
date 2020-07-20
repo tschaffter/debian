@@ -9,6 +9,7 @@ RUN test -n "${user}"
 RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     curl \
     git \
+    gnupg2 \
     htop \
     sudo \
     tmux \
