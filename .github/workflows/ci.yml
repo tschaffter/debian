@@ -15,7 +15,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run hadolint
-      run: hadolint Dockerfile.*
+      run: hadolint \
+        Dockerfile.base
 
   test:
     needs: [lint]

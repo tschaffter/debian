@@ -29,8 +29,7 @@ RUN useradd -m ${user} \
 USER ${user}
 WORKDIR /home/${user}
 
-# Create the initial structure of the persistent volume
+# Create initial files to store in the persistent volume
 RUN mkdir -p persist/.ssh && ln -s persist/.ssh . \
     && mkdir -p persist/dev && ln -s persist/dev . \
-    && touch persist/.gitconfig && ln -s persist/.gitconfig . \
-    && touch persist/.synapseConfig && ln -s persist/.synapseConfig .
+    && touch persist/.gitconfig && ln -s persist/.gitconfig .
