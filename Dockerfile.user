@@ -4,7 +4,7 @@ FROM tschaffter/debian:base-${version}
 ARG user
 RUN test -n "${user}"
 
-# Install dependencies
+# Install the tools that I need in all my environments
 # hadolint ignore=DL3008
 RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     curl \
