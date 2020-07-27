@@ -13,7 +13,7 @@ RUN sudo ln -snf /usr/share/zoneinfo/${timezone} /etc/localtime \
     && echo ${timezone} | sudo tee -a /etc/timezone
 
 # Install miniconda
-RUN wget \
+RUN curl -O \
     https://repo.anaconda.com/miniconda/Miniconda3-${miniconda3_version}-Linux-x86_64.sh \
     && mkdir /home/${user}/.conda \
     && bash Miniconda3-${miniconda3_version}-Linux-x86_64.sh -b \
