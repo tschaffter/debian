@@ -7,13 +7,13 @@ ARG py_version="3.8.4"
 RUN sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         build-essential \
-        zlib1g-dev \
-        libncurses5-dev \
-        libgdbm-dev \
-        libnss3-dev \
-        libssl-dev \
-        libreadline-dev \
         libffi-dev \
+        libgdbm-dev \
+        libncurses5-dev \
+        libnss3-dev \
+        libreadline-dev \
+        libssl-dev \
+        zlib1g-dev \
     && sudo apt-get -y autoclean \
     && sudo apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt/lists/*

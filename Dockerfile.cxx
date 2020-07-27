@@ -18,7 +18,7 @@ RUN sudo apt-get update -qq -y \
 # Install cmake-format
 RUN sudo pip install cmake-format==0.6.10
 
-# Install clang-format (buster is several versions behind)
+# Install clang-format (buster's release is several versions behind)
 RUN sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         gnupg2 \
@@ -32,7 +32,8 @@ RUN sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         clang-format-${clang_format_version} \
     && sudo update-alternatives --install \
-        /usr/bin/clang-format clang-format /usr/bin/clang-format-${clang_format_version} 10 \
+        /usr/bin/clang-format clang-format \
+        /usr/bin/clang-format-${clang_format_version} 10 \
     && sudo apt-get -y autoclean \
     && sudo apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt-get/lists/*

@@ -17,6 +17,8 @@ jobs:
     - name: Run hadolint
       run: hadolint
         Dockerfile.base
+        Dockerfile.cxx
+        Dockerfile.python
         Dockerfile.user
 
   test:
@@ -70,6 +72,28 @@ jobs:
             version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
 
+      - name: Build Dockerfile.python
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ steps.vars.outputs.repository }}
+          tags: python-latest, python-${{ steps.vars.outputs.version }}
+          dockerfile: Dockerfile.python
+          build_args: "version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
+
+      - name: Build Dockerfile.cxx
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ steps.vars.outputs.repository }}
+          tags: cxx-latest, cxx-${{ steps.vars.outputs.version }}
+          dockerfile: Dockerfile.cxx
+          build_args: "version=${{ steps.vars.outputs.version }}"
+          push: ${{ steps.vars.outputs.push }}
+
       # - name: Build Dockerfile.docker
       #   uses: docker/build-push-action@v1
       #   with:
@@ -82,17 +106,7 @@ jobs:
       #       version=${{ steps.vars.outputs.version }}"
       #     push: ${{ steps.vars.outputs.push }}
 
-      # - name: Build Dockerfile.python
-      #   uses: docker/build-push-action@v1
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-      #     repository: ${{ steps.vars.outputs.repository }}
-      #     tags: python-latest, python-${{ steps.vars.outputs.version }}
-      #     dockerfile: Dockerfile.python
-      #     build_args: "user=${{ steps.vars.outputs.user }},\
-      #       version=${{ steps.vars.outputs.version }}"
-      #     push: ${{ steps.vars.outputs.push }}
+
 
       # - name: Build Dockerfile.synapse
       #   uses: docker/build-push-action@v1
