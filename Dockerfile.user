@@ -11,6 +11,7 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     git \
     gnupg2 \
     htop \
+    openssh-client \
     sudo \
     tmux \
     vim \
