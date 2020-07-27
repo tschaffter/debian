@@ -31,6 +31,7 @@ USER ${user}
 WORKDIR /home/${user}
 
 # Create initial files to store in the persistent volume
-RUN mkdir -p persist/.ssh && ln -s persist/.ssh . \
-    && mkdir -p persist/dev && ln -s persist/dev . \
+RUN mkdir -p persist/dev && ln -s persist/dev . \
+    && mkdir -p persist/.gnupg && ln -s persist/.gnupg . \
+    && mkdir -p persist/.ssh && ln -s persist/.ssh . \
     && touch persist/.gitconfig && ln -s persist/.gitconfig .
