@@ -4,15 +4,18 @@ FROM tschaffter/debian:base-${version}
 ARG user
 RUN test -n "${user}"
 
-# Install dependencies
+# Install the tools that I need in all my environments
 # hadolint ignore=DL3008
 RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
     curl \
     git \
+    gnupg2 \
     htop \
     sudo \
     tmux \
     vim \
+    && apt-get -y autoclean \
+    && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 # Enable shell pipefail option
@@ -26,8 +29,7 @@ RUN useradd -m ${user} \
 USER ${user}
 WORKDIR /home/${user}
 
-# Create the initial structure of the persistent volume
+# Create initial files to store in the persistent volume
 RUN mkdir -p persist/.ssh && ln -s persist/.ssh . \
     && mkdir -p persist/dev && ln -s persist/dev . \
-    && touch persist/.gitconfig && ln -s persist/.gitconfig . \
-    && touch persist/.synapseConfig && ln -s persist/.synapseConfig .
+    && touch persist/.gitconfig && ln -s persist/.gitconfig .

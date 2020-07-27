@@ -19,6 +19,8 @@ RUN sudo apt-get update -qq -y \
         docker-ce \
         docker-ce-cli \
         containerd.io \
+    && sudo apt-get -y autoclean \
+    && sudo apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # Enable to user to run docker commands without sudo

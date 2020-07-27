@@ -1,5 +1,5 @@
 ARG version
-FROM tschaffter/debian:python-${version}
+FROM tschaffter/debian:conda-${version}
 
 # Create synapse conda environment
 RUN conda create --name synapse python=3.8 \
@@ -10,3 +10,6 @@ RUN conda create --name synapse python=3.8 \
 
 # Activate synapse environment when logging in
 RUN echo "source activate synapse" | tee -a ~/.bashrc
+
+# Create initial Synapse config file in the persistent volume
+RUN touch persist/.synapseConfig && ln -s persist/.synapseConfig .

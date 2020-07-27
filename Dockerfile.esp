@@ -1,0 +1,71 @@
+ARG version
+FROM tschaffter/debian:user-${version}
+
+# Install ESP-IDF prerequisites
+RUN sudo apt-get update -qq -y \
+    && sudo apt-get install --no-install-recommends -qq -y \
+        git \
+        wget \
+        flex \
+        bison \
+        gperf \
+        python \
+        python-pip \
+        python-setuptools \
+        cmake \
+        ninja-build \
+        ccache \
+        libffi-dev \
+        libssl-dev \
+        dfu-util \
+        # Install Python 3
+        python3 \
+        python3-pip \
+        python3-setuptools \
+    # Make Python 3 the default interpreter
+    && sudo update-alternatives --install \
+        /usr/bin/python python /usr/bin/python3 10 \
+    && sudo apt-get -y autoclean \
+    && sudo apt-get -y autoremove \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# Install ESP-IDF
+# To build the image for a branch or a tag of IDF, pass --build-arg IDF_CLONE_BRANCH_OR_TAG=name.
+# To build the image with a specific commit ID of IDF, pass --build-arg IDF_CHECKOUT_REF=commit-id.
+# It is possibe to combine both, e.g.:
+#   IDF_CLONE_BRANCH_OR_TAG=release/vX.Y
+#   IDF_CHECKOUT_REF=<some commit on release/vX.Y branch>.
+ARG IDF_CLONE_URL=https://github.com/espressif/esp-idf.git
+ARG IDF_CLONE_BRANCH_OR_TAG=release/v4.1
+ARG IDF_CHECKOUT_REF=
+
+ENV IDF_PATH=/opt/esp/idf
+ENV IDF_TOOLS_PATH=/opt/esp
+
+RUN echo IDF_CHECKOUT_REF=$IDF_CHECKOUT_REF IDF_CLONE_BRANCH_OR_TAG=$IDF_CLONE_BRANCH_OR_TAG && \
+    sudo git clone --recursive \
+      ${IDF_CLONE_BRANCH_OR_TAG:+-b $IDF_CLONE_BRANCH_OR_TAG} \
+      $IDF_CLONE_URL $IDF_PATH && \
+    if [ -n "$IDF_CHECKOUT_REF" ]; then \
+      cd $IDF_PATH && \
+      git checkout $IDF_CHECKOUT_REF && \
+      git submodule update --init --recursive; \
+    fi
+
+# # Install all the required tools, plus CMake
+# RUN sudo $IDF_PATH/tools/idf_tools.py --non-interactive install required \
+#   && sudo $IDF_PATH/tools/idf_tools.py --non-interactive install cmake \
+#   && sudo $IDF_PATH/tools/idf_tools.py --non-interactive install-python-env \
+#   && sudo rm -rf $IDF_TOOLS_PATH/dist
+
+# Ccache is installed, enable it by default
+ENV IDF_CCACHE_ENABLE=1
+
+# Install esp-idf
+RUN cd $IDF_PATH \
+    && sudo ./install.sh
+
+# COPY entrypoint.sh /opt/esp/entrypoint.sh
+
+# ENTRYPOINT [ "/opt/esp/idf/tools/docker/entrypoint.sh" ]
+# CMD [ "/bin/bash" ]
