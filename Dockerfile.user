@@ -7,6 +7,7 @@ RUN test -n "${user}"
 # Install the tools that I need in all my environments
 # hadolint ignore=DL3008
 RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
+    bash-completion \
     curl \
     git \
     gnupg2 \
