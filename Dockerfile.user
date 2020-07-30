@@ -35,10 +35,21 @@ WORKDIR /home/${user}
 RUN mkdir -p persist/dev && ln -s persist/dev . \
     && mkdir -p persist/.gnupg && ln -s persist/.gnupg . \
     && mkdir -p persist/.ssh && ln -s persist/.ssh . \
+    && mkdir -p persist/.vim && ln -s persist/.vim . \
     && touch persist/.gitconfig && ln -s persist/.gitconfig . \
+    && touch persist/.vimrc && ln -s persist/.vimrc . \
     && mv .profile persist/.profile && ln -s persist/.profile .
 
 # Let GPG know which terminal it is running on.
 RUN printf "\n# Let GPG know which terminal it is running on.\n\
 GPG_TTY=\$(tty)\n\
 export GPG_TTY\n" | tee -a ~/.bashrc
+
+# Install vim color scheme
+# hadolint ignore=DL3003
+RUN cd .vim \
+    && git clone https://github.com/tomasiser/vim-code-dark.git . \
+    && rm -fr LICENSE.md README.md \
+    && cd .. || exit \
+    && printf "colorscheme codedark\n" | tee -a ~/.vimrc \
+    && printf ":syntax on\n" | tee -a ~/.vimrc
