@@ -37,3 +37,8 @@ RUN mkdir -p persist/dev && ln -s persist/dev . \
     && mkdir -p persist/.ssh && ln -s persist/.ssh . \
     && touch persist/.gitconfig && ln -s persist/.gitconfig . \
     && mv .profile persist/.profile && ln -s persist/.profile .
+
+# Let GPG know which terminal it is running on.
+RUN printf "\n# Let GPG know which terminal it is running on.\n\
+GPG_TTY=\$(tty)\n\
+export GPG_TTY\n" | tee -a ~/.bashrc
