@@ -41,18 +41,17 @@ RUN mkdir -p persist/dev && ln -s persist/dev . \
     && mv .profile persist/.profile && ln -s persist/.profile .
 
 # Let GPG know which terminal it is running on.
-RUN printf "\n# Let GPG know which terminal it is running on.\n\
-GPG_TTY=\$(tty)\n\
-export GPG_TTY\n" | tee -a ~/.bashrc
+RUN printf "%s\n" \
+    "" \
+    "# Let GPG know which terminal it is running on." \
+    "GPG_TTY=\$(tty)" \
+    "export GPG_TTY" | tee -a ~/.bashrc >/dev/null
 
-# Install vim color scheme
-# hadolint ignore=DL3003
-RUN cd .vim \
-    && git clone https://github.com/tomasiser/vim-code-dark.git . \
-    && rm -fr LICENSE.md README.md \
-    && cd .. || exit \
+# Install vim color scheme `onedark` inspired by VS Code
+RUN curl -s https://raw.githubusercontent.com/tomasiser/vim-code-dark/master/colors/codedark.vim \
+        --create-dirs -o ~/.vim/colors/codedark.vim \
     && printf "%s\n" \
+        "syntax on" \
+        "set bg=dark" \
         "set t_Co=256" \
-        "set t_ut=" \
-        "colorscheme codedark" \
-        ":syntax on" | tee -a ~/.vimrc >/dev/null
+        "colorscheme codedark" | tee -a ~/.vimrc >/dev/null

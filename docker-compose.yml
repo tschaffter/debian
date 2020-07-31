@@ -31,7 +31,7 @@ services:
       - "user:127.0.0.1"
     network_mode: host
     # volumes:
-    #   - home-persist:/home/tschaffter/persist
+      # - home-persist:/home/tschaffter/persist
     expose:
       - "22"
     command: /bin/bash
