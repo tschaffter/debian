@@ -47,11 +47,17 @@ RUN printf "%s\n" \
     "GPG_TTY=\$(tty)" \
     "export GPG_TTY" | tee -a ~/.bashrc >/dev/null
 
-# Install vim color scheme `onedark` inspired by VS Code
-RUN curl -s https://raw.githubusercontent.com/tomasiser/vim-code-dark/master/colors/codedark.vim \
-        --create-dirs -o ~/.vim/colors/codedark.vim \
+# Configure vim
+RUN git clone --quiet https://github.com/joshdick/onedark.vim.git \
+    && mkdir --parents ~/.vim/pack/*/opt \
+    && mv onedark.vim "$_" \
     && printf "%s\n" \
+        "set autoindent" \
+        "set tabstop=4" \
+        "set shiftwidth=4" \
+        "set expandtab" \
+        "" \
         "syntax on" \
-        "set bg=dark" \
-        "set t_Co=256" \
-        "colorscheme codedark" | tee -a ~/.vimrc >/dev/null
+        "set background=dark" \
+        "packadd! onedark.vim" \
+        "colorscheme onedark" | tee -a ~/.vimrc >/dev/null
