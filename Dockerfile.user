@@ -51,5 +51,8 @@ RUN cd .vim \
     && git clone https://github.com/tomasiser/vim-code-dark.git . \
     && rm -fr LICENSE.md README.md \
     && cd .. || exit \
-    && printf "colorscheme codedark\n" | tee -a ~/.vimrc \
-    && printf ":syntax on\n" | tee -a ~/.vimrc
+    && printf "%s\n" \
+        "set t_Co=256" \
+        "set t_ut=" \
+        "colorscheme codedark" \
+        ":syntax on" | tee -a ~/.vimrc >/dev/null
