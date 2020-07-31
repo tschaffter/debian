@@ -49,7 +49,7 @@ RUN printf "%s\n" \
 
 # Configure vim
 RUN git clone --quiet https://github.com/joshdick/onedark.vim.git \
-    && mkdir --parents ~/.vim/pack/*/opt \
+    && mkdir --parents ~/.vim/pack/${user}/opt \
     && mv onedark.vim "$_" \
     && printf "%s\n" \
         "set autoindent" \
