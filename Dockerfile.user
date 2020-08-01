@@ -35,9 +35,7 @@ WORKDIR /home/${user}
 RUN mkdir -p persist/dev && ln -s persist/dev . \
     && mkdir -p persist/.gnupg && ln -s persist/.gnupg . \
     && mkdir -p persist/.ssh && ln -s persist/.ssh . \
-    && mkdir -p persist/.vim && ln -s persist/.vim . \
     && touch persist/.gitconfig && ln -s persist/.gitconfig . \
-    && touch persist/.vimrc && ln -s persist/.vimrc . \
     && mv .profile persist/.profile && ln -s persist/.profile .
 
 # Let GPG know which terminal it is running on.
@@ -48,16 +46,5 @@ RUN printf "%s\n" \
     "export GPG_TTY" | tee -a ~/.bashrc >/dev/null
 
 # Configure vim
-RUN git clone --quiet https://github.com/joshdick/onedark.vim.git \
-    && mkdir --parents ~/.vim/pack/${user}/opt \
-    && mv onedark.vim "$_" \
-    && printf "%s\n" \
-        "set autoindent" \
-        "set tabstop=4" \
-        "set shiftwidth=4" \
-        "set expandtab" \
-        "" \
-        "syntax on" \
-        "set background=dark" \
-        "packadd! onedark.vim" \
-        "colorscheme onedark" | tee -a ~/.vimrc >/dev/null
+COPY --chown=${user}:${user} src/.vimrc persist/.vimrc
+RUN ln -s persist/.vimrc .
