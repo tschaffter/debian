@@ -141,6 +141,28 @@ completed.
     tschaffter@user:~$
     ```
 
+## Configuration
+
+### Generating a new GPG key
+
+A GPG key is required to sign git commits. Follow the instructions given in
+GitHub's article [Generating a new GPG key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
+to generate a new key and then to get the GPG key ID.
+
+```console
+gpg --list-secret-keys --keyid-format LONG
+```
+
+### Git
+
+```console
+git config --list --show-origin
+git config --global user.name tschaffter
+git config --global user.email thomas.schaffter@gmail.com
+git config --global commit.gpgsign true
+git config --global user.signingkey <GPG key ID>
+```
+
 ## Acknowledgement
 
 Thanks to Aaron Hayden ([@ahayden](https://github.com/ahayden)) for sharing his

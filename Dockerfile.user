@@ -7,15 +7,15 @@ RUN test -n "${user}"
 # Install the tools that I need in all my environments
 # hadolint ignore=DL3008
 RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
-    bash-completion \
-    curl \
-    git \
-    gnupg2 \
-    htop \
-    openssh-client \
-    sudo \
-    tmux \
-    vim \
+        bash-completion \
+        curl \
+        git \
+        gnupg2 \
+        htop \
+        openssh-client \
+        sudo \
+        tmux \
+        vim \
     && apt-get -y autoclean \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*

@@ -4,9 +4,9 @@ FROM tschaffter/debian:conda-${version}
 # Create synapse conda environment
 RUN conda create --name synapse python=3.8 \
     && conda run --name synapse pip install \
-    synapseclient==2.1.1 \
-    challengeutils==3.0.0 \
-    pandas==1.0.5
+        synapseclient==2.1.1 \
+        challengeutils==3.0.0 \
+        pandas==1.0.5
 
 # Activate synapse environment when logging in
 RUN echo "source activate synapse" | tee -a ~/.bashrc

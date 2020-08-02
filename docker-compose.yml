@@ -53,8 +53,7 @@ services:
     expose:
       - "22"
     command: >
-      bash -c "sudo chown root:docker /var/run/docker.sock
-      && /bin/bash"
+      bash -c "/bin/bash"
 
   python:
     image: tschaffter/debian:python-${version}
