@@ -25,8 +25,6 @@ services:
         version: ${version}
     hostname: user
     restart: unless-stopped
-    # environment:
-    #   TERM: "xterm-color"
     extra_hosts:
       - "user:127.0.0.1"
     network_mode: host
@@ -52,11 +50,12 @@ services:
     volumes:
       - home-persist:/home/tschaffter/persist
       - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8443:8443"
     expose:
       - "22"
     command: >
-      bash -c "sudo chown root:docker /var/run/docker.sock
-      && /bin/bash"
+      bash -c "/bin/bash"
 
   python:
     image: tschaffter/debian:python-${version}

@@ -1,0 +1,5 @@
+{
+    "image": "tschaffter/debian:user-latest",
+    "forwardPorts": [],
+    "extensions": []
+}

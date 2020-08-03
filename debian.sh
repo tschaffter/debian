@@ -41,7 +41,7 @@ _arg_environment=("user" "latest")
 
 print_help()
 {
-	printf '%s\n' "Runs a dockerize environment."
+	printf '%s\n' "Starts a dockerized Debian development environment."
 	printf 'Usage: %s [-h|--help] [<environment-name>] [<environment-version>]\n' "$0"
 	printf '\t%s\n' "<environment-name> (default is 'user')"
 	printf '\t%s\n' "<environment-version> (default is 'latest')"

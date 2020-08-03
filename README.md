@@ -1,8 +1,11 @@
 # Dockerized Debian environments
 
-![ci](https://github.com/tschaffter/debian/workflows/ci/badge.svg)
-[![Docker](https://img.shields.io/badge/docker-tschaffter%2Fdebian-blue)](https://hub.docker.com/repository/docker/tschaffter/debian)
-[![GitHub tag](https://img.shields.io/badge/release-20200727.2-blue)](https://github.com/tschaffter/debian/releases/tag/20200727.2)
+[![GitHub Stars](https://img.shields.io/github/stars/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
+[![GitHub Release](https://img.shields.io/github/release/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/tschaffter/debian)
+[![Docker Stars](https://img.shields.io/docker/stars/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=stars&logo=docker)](https://hub.docker.com/r/tschaffter/debian)
+[![GitHub CI](https://img.shields.io/github/workflow/status/tschaffter/debian/ci.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
+[![GitHub License](https://img.shields.io/github/license/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
 
 Deploying reproducible, short-lived Debian development environments anywhere.
 
@@ -140,6 +143,62 @@ completed.
     Pulling docker ... done
     tschaffter@user:~$
     ```
+
+## Developing with VS Code inside a dev container
+
+The article [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
+describes how to use your local VS Code to develop inside a container.
+
+### Usage
+
+1. Install the VS Code extension [Remote - Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+2. Start the `python` dev environment: `./debian python local`
+3. In VS Code, click on the green button "Open a remote window" located on the
+bottom-left corner
+4. Select `Rmote-Containers: Attach to Running Container...`
+5. Select the container named `/debian_python_run_<container ID>`
+
+### VS Code extensions
+
+VS Code runs extensions in one of two places: locally on the UI / client side,
+or in the container. While extensions that affect the VS Code UI, like themes
+and snippets, are installed locally, most extensions will reside inside a
+particular container. This allows you to install only the extensions you need
+for a given task in a container and seamlessly switch your entire tool-chain
+just by connecting to a new container.
+
+VS Code keeps tracks of the extensions installed in the containers in
+configuration files saved on the host. The extensions installed are associated
+to the **name of the Docker image** used to create a given container. Each time
+you used VS Code to access a new container created from the same Docker image
+name, you will always find that the extensions previously installed in
+past containers based on the same Docker image are already installed.
+
+See VS Code section [Managing extensions](https://code.visualstudio.com/docs/remote/containers#_managing-extensions)
+for more information on how to manage extension when using VS Code to develop
+in a container.
+
+## Configuration
+
+### Generating a new GPG key
+
+A GPG key is required to sign git commits. Follow the instructions given in
+GitHub's article [Generating a new GPG key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
+to generate a new key and then to get the GPG key ID.
+
+```console
+gpg --list-secret-keys --keyid-format LONG
+```
+
+### Git
+
+```console
+git config --list --show-origin
+git config --global user.name tschaffter
+git config --global user.email thomas.schaffter@gmail.com
+git config --global commit.gpgsign true
+git config --global user.signingkey <GPG key ID>
+```
 
 ## Acknowledgement
 
