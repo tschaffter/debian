@@ -1,8 +1,11 @@
 # Dockerized Debian environments
 
-![ci](https://github.com/tschaffter/debian/workflows/ci/badge.svg)
-[![Docker](https://img.shields.io/badge/docker-tschaffter%2Fdebian-blue)](https://hub.docker.com/repository/docker/tschaffter/debian)
-[![GitHub tag](https://img.shields.io/badge/release-20200802-blue)](https://github.com/tschaffter/debian/releases/tag/20200802)
+[![GitHub Stars](https://img.shields.io/github/stars/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
+[![GitHub Release](https://img.shields.io/github/release/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=pulls&logo=docker)](https://hub.docker.com/r/tschaffter/debian)
+[![Docker Stars](https://img.shields.io/docker/stars/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&label=stars&logo=docker)](https://hub.docker.com/r/tschaffter/debian)
+[![GitHub CI](https://img.shields.io/github/workflow/status/tschaffter/debian/ci.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
+[![GitHub License](https://img.shields.io/github/license/tschaffter/debian.svg?color=94398d&labelColor=555555&logoColor=ffffff&style=for-the-badge&logo=github)](https://github.com/tschaffter/debian)
 
 Deploying reproducible, short-lived Debian development environments anywhere.
 
