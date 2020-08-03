@@ -50,6 +50,8 @@ services:
     volumes:
       - home-persist:/home/tschaffter/persist
       - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8443:8443"
     expose:
       - "22"
     command: >

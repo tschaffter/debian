@@ -141,6 +141,40 @@ completed.
     tschaffter@user:~$
     ```
 
+## Developing with VS Code inside a dev container
+
+The article [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers)
+describes how to use your local VS Code to develop inside a container.
+
+### Usage
+
+1. Install the VS Code extension [Remote - Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+2. Start the `python` dev environment: `./debian python local`
+3. In VS Code, click on the green button "Open a remote window" located on the
+bottom-left corner
+4. Select `Rmote-Containers: Attach to Running Container...`
+5. Select the container named `/debian_python_run_<container ID>`
+
+### VS Code extensions
+
+VS Code runs extensions in one of two places: locally on the UI / client side,
+or in the container. While extensions that affect the VS Code UI, like themes
+and snippets, are installed locally, most extensions will reside inside a
+particular container. This allows you to install only the extensions you need
+for a given task in a container and seamlessly switch your entire tool-chain
+just by connecting to a new container.
+
+VS Code keeps tracks of the extensions installed in the containers in
+configuration files saved on the host. The extensions installed are associated
+to the **name of the Docker image** used to create a given container. Each time
+you used VS Code to access a new container created from the same Docker image
+name, you will always find that the extensions previously installed in
+past containers based on the same Docker image are already installed.
+
+See VS Code section [Managing extensions](https://code.visualstudio.com/docs/remote/containers#_managing-extensions)
+for more information on how to manage extension when using VS Code to develop
+in a container.
+
 ## Configuration
 
 ### Generating a new GPG key
