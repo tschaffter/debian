@@ -11,8 +11,8 @@ RUN curl -sL https://deb.nodesource.com/setup_${node_setup_version} \
     && sudo apt-get install --no-install-recommends -qq -y \
         build-essential \
         nodejs \
-    && apt-get -y autoclean \
-    && apt-get -y autoremove \
-    && rm -rf /var/lib/apt/lists/*
+    && sudo apt-get -y autoclean \
+    && sudo apt-get -y autoremove \
+    && sudo rm -rf /var/lib/apt/lists/*
 
 RUN nodejs -v
