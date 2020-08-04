@@ -72,7 +72,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: user-latest, user-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.user
+          dockerfile: ./docker/Dockerfile.user
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -85,7 +85,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: python-latest, python-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.python
+          dockerfile: ./docker/Dockerfile.python
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
 
@@ -97,7 +97,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: cxx-latest, cxx-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.cxx
+          dockerfile: ./docker/Dockerfile.cxx
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
 
@@ -109,7 +109,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: conda-latest, conda-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.conda
+          dockerfile: ./docker/Dockerfile.conda
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -122,7 +122,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: synapse-latest, synapse-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.synapse
+          dockerfile: ./docker/Dockerfile.synapse
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
 
@@ -134,7 +134,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: docker-latest, docker-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.docker
+          dockerfile: ./docker/Dockerfile.docker
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
