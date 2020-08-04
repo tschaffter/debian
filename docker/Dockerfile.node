@@ -7,6 +7,7 @@ ARG node_setup_version="12.x"
 RUN curl -sL https://deb.nodesource.com/setup_${node_setup_version} \
         -o nodesource_setup.sh \
     && sudo bash nodesource_setup.sh \
+    && rm -fr nodesource_setup.sh \
     && sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         build-essential \
