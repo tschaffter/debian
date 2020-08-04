@@ -10,8 +10,6 @@ services:
         version: ${version}
     hostname: base
     restart: unless-stopped
-    extra_hosts:
-      - "base:127.0.0.1"
     network_mode: host
     command: /bin/bash
 
@@ -25,13 +23,9 @@ services:
         version: ${version}
     hostname: user
     restart: unless-stopped
-    extra_hosts:
-      - "user:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   docker:
@@ -44,18 +38,11 @@ services:
         version: ${version}
     hostname: docker
     restart: unless-stopped
-    extra_hosts:
-      - "docker:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8443:8443"
-    expose:
-      - "22"
-    command: >
-      bash -c "/bin/bash"
+    command: /bin/bash
 
   python:
     image: tschaffter/debian:python-${version}
@@ -67,13 +54,9 @@ services:
         version: ${version}
     hostname: python
     restart: unless-stopped
-    extra_hosts:
-      - "python:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   conda:
@@ -86,13 +69,9 @@ services:
         version: ${version}
     hostname: conda
     restart: unless-stopped
-    extra_hosts:
-      - "conda:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   synapse:
@@ -104,13 +83,9 @@ services:
         version: ${version}
     hostname: synapse
     restart: unless-stopped
-    extra_hosts:
-      - "synapse:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   node:
@@ -127,8 +102,6 @@ services:
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   cxx:
@@ -140,13 +113,9 @@ services:
         version: ${version}
     hostname: cxx
     restart: unless-stopped
-    extra_hosts:
-      - "cxx:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   esp:
@@ -158,13 +127,9 @@ services:
         version: ${version}
     hostname: esp
     restart: unless-stopped
-    extra_hosts:
-      - "esp:127.0.0.1"
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
 volumes:
