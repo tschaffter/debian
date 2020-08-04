@@ -24,7 +24,7 @@ RUN apt-get update -qq -y && apt-get install --no-install-recommends -qq -y \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Create user and set work directory
-RUN useradd -m ${user} \
+RUN useradd -m -s /bin/bash ${user} \
     && usermod -a -G sudo ${user} \
     && echo "${user} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${user} \
 	&& chmod 0440 /etc/sudoers.d/${user}
