@@ -59,7 +59,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: base-latest, base-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.base
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -71,7 +71,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: user-latest, user-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.user
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
@@ -84,7 +84,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: python-latest, python-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.python
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -96,7 +96,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: cxx-latest, cxx-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.cxx
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -108,7 +108,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: conda-latest, conda-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.conda
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
@@ -121,7 +121,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: synapse-latest, synapse-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.synapse
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
@@ -133,7 +133,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: ${{ steps.vars.outputs.repository }}
           tags: docker-latest, docker-${{ steps.vars.outputs.version }}
-          path: docker/
+          path: ./docker
           dockerfile: Dockerfile.docker
           build_args: "user=${{ steps.vars.outputs.user }},\
             version=${{ steps.vars.outputs.version }}"
