@@ -4,7 +4,7 @@ services:
   base:
     image: tschaffter/debian:base-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.base
       args:
         version: ${version}
@@ -18,7 +18,7 @@ services:
   user:
     image: tschaffter/debian:user-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.user
       args:
         user: ${user}
@@ -37,7 +37,7 @@ services:
   docker:
     image: tschaffter/debian:docker-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.docker
       args:
         user: ${user}
@@ -60,7 +60,7 @@ services:
   python:
     image: tschaffter/debian:python-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.python
       args:
         user: ${user}
@@ -79,7 +79,7 @@ services:
   conda:
     image: tschaffter/debian:conda-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.conda
       args:
         user: ${user}
@@ -98,7 +98,7 @@ services:
   synapse:
     image: tschaffter/debian:synapse-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.synapse
       args:
         version: ${version}
@@ -116,7 +116,7 @@ services:
   node:
     image: tschaffter/debian:node-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.node
       args:
         version: ${version}
@@ -134,7 +134,7 @@ services:
   cxx:
     image: tschaffter/debian:cxx-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.cxx
       args:
         version: ${version}
@@ -152,7 +152,7 @@ services:
   esp:
     image: tschaffter/debian:esp-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.esp
       args:
         version: ${version}
