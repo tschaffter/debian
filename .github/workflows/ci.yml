@@ -60,7 +60,7 @@ jobs:
           repository: ${{ steps.vars.outputs.repository }}
           tags: base-latest, base-${{ steps.vars.outputs.version }}
           path: ./docker
-          dockerfile: Dockerfile.base
+          dockerfile: ./docker/Dockerfile.base
           build_args: "version=${{ steps.vars.outputs.version }}"
           push: ${{ steps.vars.outputs.push }}
 
