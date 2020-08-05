@@ -35,6 +35,7 @@ WORKDIR /home/${user}
 RUN mkdir -p persist/dev && ln -s persist/dev . \
     && mkdir -p persist/.gnupg && ln -s persist/.gnupg . \
     && mkdir -p persist/.ssh && ln -s persist/.ssh . \
+    && touch persist/.bash_aliases && ln -s persist/.bash_aliases . \
     && touch persist/.gitconfig && ln -s persist/.gitconfig . \
     && mv .profile persist/.profile && ln -s persist/.profile .
 
@@ -44,6 +45,18 @@ RUN printf "%s\n" \
     "# Let GPG know which terminal it is running on." \
     "GPG_TTY=\$(tty)" \
     "export GPG_TTY" | tee -a ~/.bashrc >/dev/null
+
+# Source aliases
+RUN printf "%s\n" \
+    "" \
+    "# Source aliases" \
+    "if [ -f ~/.bash_aliases ]; then" \
+    "    . ~/.bash_aliases" \
+    "fi" | tee -a ~/.bashrc >/dev/null
+
+# Add aliases
+RUN printf "%s\n" \
+    "alias ll='ls -alF'" | tee -a ~/.bash_aliases >/dev/null
 
 # Configure vim
 COPY --chown=${user}:${user} src/.vimrc persist/.vimrc
