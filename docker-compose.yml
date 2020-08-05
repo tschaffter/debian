@@ -37,6 +37,8 @@ services:
         user: ${user}
         version: ${version}
     hostname: docker
+    extra_hosts:
+      - "docker:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -96,10 +98,13 @@ services:
       args:
         version: ${version}
     hostname: node
-    restart: unless-stopped
     extra_hosts:
       - "node:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
+    # ports:
+    #   - "443:443"
+    #   - "9000:9000"
     volumes:
       - home-persist:/home/tschaffter/persist
     command: /bin/bash
