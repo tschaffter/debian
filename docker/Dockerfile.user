@@ -56,6 +56,7 @@ RUN printf "%s\n" \
 
 # Add aliases
 RUN printf "%s\n" \
+    "# List the detail information of files and folders of a current directory" \
     "alias ll='ls -alF'" | tee -a ~/.bash_aliases >/dev/null
 
 # Configure vim
