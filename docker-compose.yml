@@ -9,6 +9,8 @@ services:
       args:
         version: ${version}
     hostname: base
+    extra_hosts:
+      - "base:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     command: /bin/bash
@@ -22,6 +24,8 @@ services:
         user: ${user}
         version: ${version}
     hostname: user
+    extra_hosts:
+      - "user:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -55,6 +59,8 @@ services:
         user: ${user}
         version: ${version}
     hostname: python
+    extra_hosts:
+      - "python:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -70,6 +76,8 @@ services:
         user: ${user}
         version: ${version}
     hostname: conda
+    extra_hosts:
+      - "conda:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -84,6 +92,8 @@ services:
       args:
         version: ${version}
     hostname: synapse
+    extra_hosts:
+      - "synapse:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -117,6 +127,8 @@ services:
       args:
         version: ${version}
     hostname: cxx
+    extra_hosts:
+      - "cxx:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -131,6 +143,8 @@ services:
       args:
         version: ${version}
     hostname: esp
+    extra_hosts:
+      - "esp:127.0.0.1"
     restart: unless-stopped
     network_mode: host
     volumes:
