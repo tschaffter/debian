@@ -4,167 +4,151 @@ services:
   base:
     image: tschaffter/debian:base-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.base
       args:
         version: ${version}
     hostname: base
-    restart: unless-stopped
     extra_hosts:
       - "base:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     command: /bin/bash
 
   user:
     image: tschaffter/debian:user-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.user
       args:
         user: ${user}
         version: ${version}
     hostname: user
-    restart: unless-stopped
     extra_hosts:
       - "user:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   docker:
     image: tschaffter/debian:docker-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.docker
       args:
         user: ${user}
         version: ${version}
     hostname: docker
-    restart: unless-stopped
     extra_hosts:
       - "docker:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8443:8443"
-    expose:
-      - "22"
-    command: >
-      bash -c "/bin/bash"
+    command: /bin/bash
 
   python:
     image: tschaffter/debian:python-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.python
       args:
         user: ${user}
         version: ${version}
     hostname: python
-    restart: unless-stopped
     extra_hosts:
       - "python:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   conda:
     image: tschaffter/debian:conda-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.conda
       args:
         user: ${user}
         version: ${version}
     hostname: conda
-    restart: unless-stopped
     extra_hosts:
       - "conda:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   synapse:
     image: tschaffter/debian:synapse-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.synapse
       args:
         version: ${version}
     hostname: synapse
-    restart: unless-stopped
     extra_hosts:
       - "synapse:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   node:
     image: tschaffter/debian:node-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.node
       args:
         version: ${version}
     hostname: node
-    restart: unless-stopped
     extra_hosts:
       - "node:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
+    # ports:
+    #   - "443:443"
+    #   - "9000:9000"
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   cxx:
     image: tschaffter/debian:cxx-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.cxx
       args:
         version: ${version}
     hostname: cxx
-    restart: unless-stopped
     extra_hosts:
       - "cxx:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
   esp:
     image: tschaffter/debian:esp-${version}
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile.esp
       args:
         version: ${version}
     hostname: esp
-    restart: unless-stopped
     extra_hosts:
       - "esp:127.0.0.1"
+    restart: unless-stopped
     network_mode: host
     volumes:
       - home-persist:/home/tschaffter/persist
-    expose:
-      - "22"
     command: /bin/bash
 
 volumes:

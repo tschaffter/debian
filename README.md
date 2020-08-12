@@ -35,10 +35,8 @@ Use the script `debian.sh <environment> <version>` to start the environment
 that matches the name and version specified. The following commands are
 equivalent.
 
-```console
-bash debian.sh user latest
-bash debian.sh user
-```
+    bash debian.sh user latest
+    bash debian.sh user
 
 It is recommended to add `debian.sh` to your `PATH` so you can run environments
 from anywhere.
@@ -46,22 +44,16 @@ from anywhere.
 The value of `<version>` can be set to any git tags for which Docker images have
 been successfully pushed to DockerHub. For example,
 
-```console
-bash debian.sh user 20200713
-```
+    bash debian.sh user 20200713
 
 When using `Git Bash` on Windows 10, use the following command:
 
-```console
-winpty bash debian.sh user 20200713
-```
+    winpty bash debian.sh user 20200713
 
 Press CTRL+P followed by CTRL+Q to detatch from the container. To attach to the
 running container:
 
-```console
-docker attach <container_id>
-```
+    docker attach <container_id>
 
 Enter `exit` or press CTRL+C followed by CTRL+D to exit and stop the container.
 
@@ -74,14 +66,12 @@ example, `user=tschaffter bash debian.sh user local`.
 
 To build and start the environment `base` defined by `Dockerfile.base`:
 
-```console
-$ bash debian.sh base local
-Pulling base ... done
-Step 1/8 : FROM debian:buster-20200607-slim
-...
-Successfully tagged tschaffter/debian:base-local
-root@base:/tmp#
-```
+    $ bash debian.sh base local
+    Pulling base ... done
+    Step 1/8 : FROM debian:buster-20200607-slim
+    ...
+    Successfully tagged tschaffter/debian:base-local
+    root@base:/tmp#
 
 Here `local` is the value given to the variable `version`. Because the
 image `tschaffter/debian:base-local` does not exists on Docker Hub or any other
@@ -91,28 +81,22 @@ builds the environment using the instructions specified in `docker-compose.yml`.
 Building other environments may require to set the value of additional variables
 such as the environment `user` that requires to set the variable `user`.
 
-```console
-$ user=tschaffter bash debian.sh user local
-Pulling user ... done
-Step 1/10 : ARG version
-...
-Successfully tagged tschaffter/debian:user-local
-tschaffter@user:~$
-```
+    $ user=tschaffter bash debian.sh user local
+    Pulling user ... done
+    Step 1/10 : ARG version
+    ...
+    Successfully tagged tschaffter/debian:user-local
+    tschaffter@user:~$
 
 Alternatively, you can also build multiple environment using
 `docker-compose build`:
 
-```console
-user=tschaffter version=local docker-compose build \
-    base user docker python synapse node
-```
+    user=tschaffter version=local docker-compose build \
+        base user docker python synapse node
 
 before starting the environment of your choice:
 
-```console
-bash debian.sh node local
-```
+    bash debian.sh node local
 
 ## Creating your own environments
 
@@ -129,20 +113,16 @@ bash debian.sh node local
 to the credentials of a DockerHub account (service/machine user suggested).
 7. After committing the changes, tag the commit to create a release.
 
-    ```console
-    tag -a 20200713
-    git push origin 20200713
-    ```
+        tag -a 20200713
+        git push origin 20200713
 
 8. Run one of the environments once the GitHub Action `ci.yml` has successfully
 completed.
 
-    ```console
-    $ ./debian.sh user
-    Pulling user   ... done
-    Pulling docker ... done
-    tschaffter@user:~$
-    ```
+        $ ./debian.sh user
+        Pulling user   ... done
+        Pulling docker ... done
+        tschaffter@user:~$
 
 ## Developing with VS Code inside a dev container
 
@@ -186,19 +166,15 @@ A GPG key is required to sign git commits. Follow the instructions given in
 GitHub's article [Generating a new GPG key](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key)
 to generate a new key and then to get the GPG key ID.
 
-```console
-gpg --list-secret-keys --keyid-format LONG
-```
+    gpg --list-secret-keys --keyid-format LONG
 
 ### Git
 
-```console
-git config --list --show-origin
-git config --global user.name tschaffter
-git config --global user.email thomas.schaffter@gmail.com
-git config --global commit.gpgsign true
-git config --global user.signingkey <GPG key ID>
-```
+    git config --list --show-origin
+    git config --global user.name tschaffter
+    git config --global user.email thomas.schaffter@gmail.com
+    git config --global commit.gpgsign true
+    git config --global user.signingkey <GPG key ID>
 
 ## Acknowledgement
 
