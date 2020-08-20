@@ -63,6 +63,8 @@ services:
       - "python:127.0.0.1"
     restart: unless-stopped
     network_mode: host
+    # ports:
+    #   - "8000:8000"
     volumes:
       - home-persist:/home/tschaffter/persist
     command: /bin/bash
@@ -108,12 +110,12 @@ services:
       args:
         version: ${version}
     hostname: node
-    extra_hosts:
-      - "node:127.0.0.1"
+    # extra_hosts:
+    #   - "node:127.0.0.1"
     restart: unless-stopped
-    network_mode: host
-    # ports:
-    #   - "443:443"
+    # network_mode: host
+    ports:
+      - "8080:8080"
     #   - "9000:9000"
     volumes:
       - home-persist:/home/tschaffter/persist

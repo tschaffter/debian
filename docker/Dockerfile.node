@@ -11,9 +11,24 @@ RUN curl -sL https://deb.nodesource.com/setup_${node_setup_version} \
     && sudo apt-get update -qq -y \
     && sudo apt-get install --no-install-recommends -qq -y \
         build-essential \
+        man \
         nodejs \
     && sudo apt-get -y autoclean \
     && sudo apt-get -y autoremove \
     && sudo rm -rf /var/lib/apt/lists/*
 
-RUN nodejs -v
+# Enable user to install npm packages globally without sudo
+RUN mkdir "${HOME}/.npm-packages" \
+    && npm config set prefix "${HOME}/.npm-packages" \
+    && printf "%s\n" \
+        "" \
+        "# Add user's global npm packages to PATH" \
+        'NPM_PACKAGES="${HOME}/.npm-packages"' \
+        'export PATH="$PATH:$NPM_PACKAGES/bin"' \
+        'export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"' | tee -a ~/.bashrc >/dev/null
+
+# Install packages
+RUN npm install -g \
+    @ga4gh/gh-openapi-docs@0.2.1 \
+    @redocly/openapi-cli@1.0.0-beta.8 \
+    redoc-cli@0.9.11

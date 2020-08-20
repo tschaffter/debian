@@ -146,6 +146,6 @@ version=${version} docker-compose \
 version=${version} docker-compose \
 	-f ${file} \
 	--log-level ERROR \
-	run ${environment}
+	run --service-ports ${environment}
 
 # ] <-- needed because of Argbash
